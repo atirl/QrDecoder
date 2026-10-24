@@ -1,3 +1,7 @@
+old/
+nuitka_dist/
+pyinst_dist/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
