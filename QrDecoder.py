@@ -1,18 +1,15 @@
 #============================================================
 # QrDecoder : QRコードテキスト化ツール
 # 2023/06/11 atirl　作成
-# 2026/10/21 atirl　日本語ファイル対応、exe化対応
-# > python QrDecorder.py imagefile.jpg　でもいいですし
-# 当ファイル.exeにQR画像ファイルをドラッグしてもいいです
-# ※「画像ファイルと同じフォルダ」に出力されます
+# 2026/10/21 日本語ファイル対応、exe化対応
+# 2026/10/25 exe化時、zxingcppのほうが遥かに軽いようなので変更
 #============================================================
 import sys
 import traceback
 from pathlib import Path
 from datetime import datetime
-
-import cv2
-import numpy as np
+from PIL import Image
+import zxingcpp
 
 def create_timestamp():
     return datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -36,23 +33,22 @@ def main():
     image_file = sys.argv[1]
     image_path = Path(image_file)
 
-    #日本語ファイル名対応
-    img = cv2.imdecode(
-        np.fromfile(image_file, dtype=np.uint8),
-        cv2.IMREAD_COLOR
-    )
-
-    if img is None:
+    #zxingcppに変更
+    try:
+        with Image.open(image_path) as img:
+            barcode = zxingcpp.read_barcode(
+                img,
+                formats=zxingcpp.BarcodeFormat.QRCode
+            )
+    except Exception as e:
         raise Exception(
             f"画像を開けません……\n\nファイル:\n{image_file}"
-        )
+        ) from e
 
-    detector = cv2.QRCodeDetector()
+    if barcode is None:
+        raise Exception("QRコードが検出できませんでした。画像からは…")
 
-    data, points, _ = detector.detectAndDecode(img)
-
-    if not data:
-        raise Exception("QRコードが検出できませんでした。画像から。")
+    data = barcode.text
 
     #出力ファイル名
     base_name = f"[{image_path.name}]"
