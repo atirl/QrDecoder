@@ -12,10 +12,12 @@ QRコード付き画像ファイルをドラッグすると、テキストファ
 __python実行環境がある方、コマンドラインで動す方:__  
 「Code」からQrDecoder.pyをダウンロード(exeでもいいですが…)  
 そしてコマンドラインで  
-> python QrDecoder.py sample.png
+```powershell
+python QrDecoder.py sample.png
+```
 
 __GUIで動かしたい方:__  
-「Releases」からQrDecoder.exeをダウンロード。  
+「Releases」からQrDecoderのzipファイルをダウンロードし解凍する。  
 QRコード付きの画像ファイルをQrDecoder.exeにドラッグ＆ドロップしてください。
 
 ## ファイル構成
@@ -28,4 +30,5 @@ QRコード付きの画像ファイルをQrDecoder.exeにドラッグ＆ドロ�
 ## 開発環境
 - windows11
 - python3.15  
-OS非依存の部分が多いと思いますが、Linuxでは試していません。inputとイメージファイルオープンなど、引っかかるかも。
+OS非依存の部分が多いと思いますが、Linuxでは試していません。inputとイメージファイルオープンなど、引っかかるかも。  
+exe化はnuitkaとpyinstallerでいくつかオプションを試して軽い方にしましたが、あまり軽くありません。
