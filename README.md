@@ -9,16 +9,20 @@ QRコード付き画像ファイルをドラッグすると、テキストファ
 - 別ツール「TotpDecoder」用に、QRコードをテキスト化して鍵を抜き出すため
 
 ## 使い方
+__GUIで動かしたい方:__  
+「Releases」からQrDecoderのzipファイルをダウンロードし解凍する。  
+QRコード付きの画像ファイルをQrDecoder.exeにドラッグ＆ドロップしてください。
+
 __python実行環境がある方、コマンドラインで動す方:__  
 「Code」からQrDecoder.pyをダウンロード(exeでもいいですが…)  
 そしてコマンドラインで  
 ```powershell
 python QrDecoder.py sample.png
 ```
-
-__GUIで動かしたい方:__  
-「Releases」からQrDecoderのzipファイルをダウンロードし解凍する。  
-QRコード付きの画像ファイルをQrDecoder.exeにドラッグ＆ドロップしてください。
+実行できない場合は以下のコマンドでライブラリをインストールしてください  
+```powershell
+python -m pip install zxing-cpp pillow
+```
 
 ## ファイル構成
 - QrDecoder.py：本体（これだけで動きます）  
